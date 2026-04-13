@@ -46,7 +46,25 @@ Results
 - Achieved word-level censorship instead of full scene removal  
 - Maintained proper audio-video synchronization  
 - Generated clean output video with subtitles  
-- Successfully tested on multiple video samples  
+- Successfully tested on multiple video samples 
+
+---
+
+Implementation
+
+The core implementation of the CleanStream system is provided in the file:
+
+cleanstream.py
+
+This script performs the complete processing pipeline:
+
+- Loads Whisper-generated word-level timestamps  
+- Detects profanity using keyword matching  
+- Applies buffer-based timestamp adjustment  
+- Merges overlapping timestamps  
+- Uses FFmpeg to selectively mute detected segments  
+- Generates subtitles and overlays them on the video  
+
 
 Live Presentation Link  
 
