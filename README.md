@@ -1,78 +1,70 @@
-CleanStream 🎬
+CleanStream  
 
-An automated system that detects strong language in video content and temporarily mutes or blocks the scene to make media family friendly.
+An AI-based automated system that detects strong language in video content and selectively mutes only those specific words, making media family-friendly without affecting the overall viewing experience.
 
+Problem Statement  
 
-Problem Statement
+Many movies, web series, and online videos contain strong language that makes them unsuitable for family viewing. Existing solutions either remove entire scenes or require manual editing. There is no efficient automated system that performs precise, word-level censorship while preserving content continuity.
 
-Many movies, web series and online videos contain strong language that makes them unsuitable for family viewing. There is no simple automated system that detects and handles such content in real time.
+Our Solution  
 
+CleanStream uses an AI-driven pipeline to detect and censor inappropriate language:
 
-Our Solution
+- Uses speech-to-text (Whisper) to extract word-level timestamps  
+- Identifies profanity using keyword-based detection  
+- Applies selective audio muting using FFmpeg  
+- Maintains synchronization between audio and video  
+- Generates subtitles for visual verification  
 
-CleanStream detects strong words from subtitles and automatically:
+Technology Used  
 
-1) Identifies timestamps of inappropriate words
-2) Temporarily mutes or blocks those scenes
-3) Produces a clean, family-friendly output video  
+- Python (core processing and automation)  
+- OpenAI Whisper (speech-to-text transcription)  
+- FFmpeg (video and audio processing)  
+- Subtitle generation (SRT format)  
+- Git & GitHub Pages (for hosting presentation)  
 
+How It Works  
 
-Technology Used
+1. Input video file is processed.  
+2. Whisper generates transcript with word-level timestamps.  
+3. Extracted words are scanned for profanity.  
+4. Accurate timestamps are generated with buffering.  
+5. FFmpeg applies selective muting to those segments.  
+6. Subtitles are generated and overlaid on the video.  
+7. Final clean video is produced.  
 
-1) FFmpeg
-2) Subtitle (.vtt) processing
-3) Shell scripting
-4) Git & GitHub Pages (for hosting presentation)
+Sample FFmpeg Logic Used  
 
+volume=enable='between(t,start,end)':volume=0  
 
-How It Works
+This ensures only specific segments are muted while keeping the rest of the audio intact.
 
-1) Extract subtitles from video.
-2) Scan subtitles for strong language keywords.
-3) Get timestamps of detected words.
-4) Use FFmpeg to mute/block those timestamps.
-5) Generate final clean video output.
+Results  
 
+- Successfully detected profanity using AI-based transcription  
+- Achieved word-level censorship instead of full scene removal  
+- Maintained proper audio-video synchronization  
+- Generated clean output video with subtitles  
+- Successfully tested on multiple video samples  
 
-Sample FFmpeg Command Used
+Live Presentation Link  
 
-```bash
-ffmpeg -i input.webm -vf "drawtext=..." output.webm
-```
+https://tyagiangad0616.github.io/CleanStream/  
 
+Future Scope  
 
-Results
+- Real-time live streaming censorship  
+- Context-aware NLP-based detection  
+- Web-based interface for user uploads  
+- Browser extension for OTT platforms  
+- Mobile application implementation  
 
-1) Successfully detected strong language from subtitle file.
-2) Automatically muted specific timestamps.
-3) Generated clean output video (output_final.webm).
-4) GitHub-hosted live presentation deployed successfully.
+Project Guide  
 
+Mr Bhawani Singh Rathore  
 
-
-Live Presentation Link
-
-https://tyagiangad0616.github.io/CleanStream/
-
-
-
-Future Scope
-
-1) Real-time live streaming censorship
-2) AI-based speech-to-text integration
-3) Web application version
-4) Browser extension for OTT platforms
-5) Mobile app implementation
-
-
-
-Project Guide
-
-Dr. Bhawani Singh Rathore
-
-
-Developed By
+Developed By  
 
 Angad Tyagi  
-Registration ID: 2427030688
-
+Registration No: 2427030688  
