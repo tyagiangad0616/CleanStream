@@ -1,181 +1,135 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CleanStream | PBL Midterm 2026</title>
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
-        body { background-color: #020617; color: #f8fafc; font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
-        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .gradient-text { background: linear-gradient(90deg, #60a5fa, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        
-        /* TIMER UI - FIXED CONTRAST */
-        #timerContainer { background: #ffffff; color: #020617; box-shadow: 0 10px 40px rgba(0,0,0,0.8); border: 3px solid #3b82f6; z-index: 1000; }
-        @keyframes flicker { 0%, 100% { background-color: #ffffff; } 50% { background-color: #fca5a5; } }
-        .timer-warning { animation: flicker 1s infinite; border: 3px solid #ef4444 !important; color: #b91c1c !important; }
-        .timer-stop { background-color: #991b1b !important; color: #ffffff !important; border: 3px solid #f87171 !important; animation: none; }
-    </style>
-</head>
-<body onload="startTimer()">
+<section class="min-h-screen flex flex-col justify-center items-center text-center px-6">
+    <h1 class="text-6xl font-extrabold gradient-text mb-6">CleanStream</h1>
+    <p class="text-xl text-slate-300 max-w-3xl">
+        AI-Based Strong Language Detection and Selective Audio Censorship System
+    </p>
+    <p class="mt-6 text-slate-400">
+        Angad Tyagi | 2427030688<br>
+        Guide: Mr Bhawani Singh Rathore
+    </p>
+</section>
 
-    <div id="timerContainer" class="fixed bottom-10 right-10 px-8 py-4 rounded-3xl flex items-center gap-4 transition-all">
-        <i class="fas fa-hourglass-start text-blue-600 text-2xl" id="timerIcon"></i>
-        <span id="displayTime" class="text-4xl font-black font-mono tracking-tighter">00:00</span>
+
+<section class="min-h-screen flex flex-col justify-center px-12">
+    <h2 class="text-4xl font-bold mb-6 gradient-text">Problem Statement</h2>
+    <ul class="text-lg text-slate-300 space-y-4">
+        <li>Presence of strong language in media content makes it unsuitable for all audiences</li>
+        <li>Existing systems either remove entire scenes or require manual editing</li>
+        <li>Subtitle-based filtering is unreliable and inaccurate</li>
+        <li>Lack of automated systems for precise word-level censorship</li>
+    </ul>
+</section>
+
+
+<section class="min-h-screen flex flex-col justify-center px-12">
+    <h2 class="text-4xl font-bold mb-6 gradient-text">Proposed Solution</h2>
+    <ul class="text-lg text-slate-300 space-y-4">
+        <li>AI-based speech-to-text transcription using Whisper</li>
+        <li>Extraction of word-level timestamps</li>
+        <li>Detection of profanity using keyword matching</li>
+        <li>Selective audio muting using FFmpeg</li>
+        <li>Maintaining synchronization between audio and video</li>
+    </ul>
+</section>
+
+
+<section class="min-h-screen flex flex-col justify-center px-12">
+    <h2 class="text-4xl font-bold mb-6 gradient-text">Technology Used</h2>
+    <ul class="text-lg text-slate-300 space-y-3">
+        <li>Python – Core processing and automation</li>
+        <li>OpenAI Whisper – Speech-to-text transcription</li>
+        <li>FFmpeg – Audio/video processing</li>
+        <li>Subtitle generation (SRT format)</li>
+        <li>GitHub Pages – Hosting presentation</li>
+    </ul>
+</section>
+
+
+<section class="min-h-screen flex flex-col justify-center px-12">
+    <h2 class="text-4xl font-bold mb-6 gradient-text">System Workflow</h2>
+    <div class="text-lg text-slate-300 space-y-2">
+        <p>Input Video</p>
+        <p>↓</p>
+        <p>Whisper Transcription</p>
+        <p>↓</p>
+        <p>Word Extraction</p>
+        <p>↓</p>
+        <p>Profanity Detection</p>
+        <p>↓</p>
+        <p>Timestamp Mapping</p>
+        <p>↓</p>
+        <p>FFmpeg Processing</p>
+        <p>↓</p>
+        <p>Clean Output Video</p>
     </div>
+</section>
 
-    <nav class="fixed w-full z-50 glass border-b border-slate-800/50 px-8 py-4 flex justify-between items-center">
-        <div class="flex items-center gap-4">
-            <div class="bg-white p-1 rounded flex items-center justify-center shadow-md" style="height: 48px; width: 48px;">
-                <img src="mujlogo.jpg" alt="MUJ" class="h-full w-auto object-contain" onerror="this.src='https://via.placeholder.com/50?text=MUJ'">
-            </div>
-            <div class="flex flex-col text-left">
-                <span class="text-xl font-black text-white leading-none uppercase tracking-tighter">PBL <span class="text-blue-500 italic">2026</span></span>
-                <span class="text-[9px] text-slate-400 font-bold uppercase tracking-widest mt-1">Dept. of Computer Science & Engineering</span>
-            </div>
-        </div>
-        <div class="hidden md:flex gap-8 text-[11px] uppercase tracking-widest font-bold opacity-70">
-            <a href="#problem" class="hover:text-blue-400 transition">Problem</a>
-            <a href="#methodology" class="hover:text-blue-400 transition">Methodology</a>
-            <a href="#results" class="hover:text-blue-400 transition">Results</a>
-            <a href="#team" class="hover:text-blue-400 transition">Team</a>
-        </div>
-    </nav>
+<
+<section class="min-h-screen flex flex-col justify-center px-12">
+    <h2 class="text-4xl font-bold mb-6 gradient-text">Implementation Highlights</h2>
+    <ul class="text-lg text-slate-300 space-y-4">
+        <li>Transition from subtitle-based detection to AI-based detection</li>
+        <li>Word-level timestamp extraction using Whisper</li>
+        <li>Buffer tuning for accurate censorship</li>
+        <li>Use of FFmpeg volume filter instead of cutting audio</li>
+        <li>Automatic subtitle generation from transcription</li>
+    </ul>
+</section>
 
-    <main class="max-w-6xl mx-auto px-6 pt-48 pb-32 space-y-32">
-        
-        <section class="text-center">
-            <div class="inline-block px-4 py-1 border border-slate-800 rounded-full text-slate-500 text-[10px] font-mono mb-6 uppercase tracking-widest">ID: [YOUR_REG_NO]</div>
-            <h1 class="text-6xl md:text-7xl font-extrabold mb-8 uppercase leading-tight"><span class="gradient-text uppercase">CleanStream</span></h1>
-            <p class="text-slate-400 max-w-2xl mx-auto italic text-lg leading-relaxed border-l-2 border-blue-500/30 pl-6 text-left">
-                An automated system that detects strong language in video content and temporarily mutes or blocks the scene to make media family-friendly.
-            </p>
-        </section>
 
-        <section id="problem" class="grid md:grid-cols-2 gap-12 items-stretch">
-            <div class="glass p-10 rounded-[2.5rem] flex flex-col justify-center border-l-4 border-blue-600">
-                <h2 class="text-3xl font-extrabold mb-6">Problem Statement</h2>
-                <p class="text-slate-400 leading-relaxed text-justify">Modern digital media often contains strong language that makes it unsuitable for children or family viewing. There is currently no simple, automated solution that detects profanity in real-time and modifies video playback accordingly. This creates a gap between content availability and family-friendly consumption.</p>
-            </div>
-            <div class="space-y-6">
-                <div class="glass p-7 rounded-3xl border-r-4 border-blue-500/50">
-                    <h3 class="text-blue-400 font-bold text-xs uppercase tracking-widest mb-2">Literature Review / Market Research</h3>
-                    <p class="text-sm text-slate-500 italic">Summary of existing solutions or research papers analyzed.</p>
-                </div>
-                <div class="glass p-7 rounded-3xl border-r-4 border-purple-500/50">
-                    <h3 class="text-purple-400 font-bold text-xs uppercase tracking-widest mb-2">Research Gap / Innovation</h3>
-                    <p class="text-sm text-slate-500 italic">Unlike traditional parental control filters that block entire videos, our system performs time-based detection using subtitles and selectively mutes or overlays only the specific segment containing strong language.</p>
-                </div>
-            </div>
-        </section>
+<section class="min-h-screen flex flex-col justify-center px-12">
+    <h2 class="text-4xl font-bold mb-6 gradient-text">Results</h2>
+    <ul class="text-lg text-slate-300 space-y-4">
+        <li>Accurate detection of profanity words</li>
+        <li>Successful word-level muting</li>
+        <li>Maintained audio-video synchronization</li>
+        <li>Smooth playback without distortion</li>
+        <li>Tested on multiple video samples</li>
+    </ul>
+</section>
 
-        <section id="methodology" class="space-y-12">
-            <h2 class="text-4xl font-black text-center uppercase tracking-tight">System <span class="text-blue-500">Methodology</span></h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="glass p-8 rounded-3xl text-center">
-                    <i class="fas fa-database text-blue-500 text-3xl mb-4"></i>
-                    <h3 class="font-bold mb-2 uppercase text-xs tracking-widest">Dataset / Input</h3>
-                    <p class="text-sm text-slate-500">Input consists of a YouTube video (.webm) and its subtitle file (.vtt). Subtitles are parsed to extract timestamps and dialogue text for profanity detection.</p>
-                </div>
-                <div class="glass p-8 rounded-3xl text-center">
-                    <i class="fas fa-microchip text-purple-500 text-3xl mb-4"></i>
-                    <h3 class="font-bold mb-2 uppercase text-xs tracking-widest">Model / Architecture</h3>
-                    <p class="text-sm text-slate-500">Keyword-based strong language detection is applied to subtitle text. Detected timestamps are converted to seconds and passed to FFmpeg filters to apply black screen overlay and audio muting.</p>
-                </div>
-                <div class="glass p-8 rounded-3xl text-center border-2 border-green-500/20 bg-green-500/5">
-                    <i class="fab fa-python text-green-500 text-3xl mb-4"></i>
-                    <h3 class="font-bold mb-4 uppercase text-xs tracking-widest text-green-400">Live Execution</h3>
-                    <a href="https://github.com/tyagiangad0616/CleanStream" target="_blank" class="px-6 py-2 bg-green-600 rounded-full text-[10px] font-black hover:bg-green-500 transition">View Repository</a>
-                </div>
-            </div>
-        </section>
 
-        <section id="results" class="glass p-12 rounded-[3.5rem] border-t-4 border-blue-500">
-            <h2 class="text-3xl font-black mb-12 text-center uppercase tracking-tight">Results & <span class="text-blue-500">Analysis</span></h2>
-            <div class="grid md:grid-cols-2 gap-16 items-center">
-                <div class="h-80"><canvas id="resultsChart"></canvas></div>
-                <div class="space-y-6">
-                    <div class="p-6 rounded-2xl bg-white/5 flex justify-between items-center border border-white/10 shadow-inner">
-                        <span class="text-slate-400 font-bold uppercase text-xs tracking-widest">Accuracy / Performance</span>
-                        <span class="text-blue-400 font-mono font-black text-3xl">92%</span>
-                    </div>
-                    <p class="text-slate-500 text-sm italic text-justify leading-relaxed">System successfully detected explicit words from subtitle file and muted audio for 2 seconds during flagged timestamps. Tested on sample Breaking Bad clip.</p>
-                </div>
-            </div>
-        </section>
+<section class="min-h-screen flex flex-col justify-center px-12">
+    <h2 class="text-4xl font-bold mb-6 gradient-text">Comparison</h2>
+    <table class="table-auto border border-slate-600 text-slate-300">
+        <tr>
+            <th class="px-6 py-3 border">Method</th>
+            <th class="px-6 py-3 border">Accuracy</th>
+            <th class="px-6 py-3 border">Sync</th>
+        </tr>
+        <tr>
+            <td class="px-6 py-2 border">Subtitle-Based</td>
+            <td class="px-6 py-2 border">Low</td>
+            <td class="px-6 py-2 border">Poor</td>
+        </tr>
+        <tr>
+            <td class="px-6 py-2 border">Keyword Matching</td>
+            <td class="px-6 py-2 border">Medium</td>
+            <td class="px-6 py-2 border">Moderate</td>
+        </tr>
+        <tr>
+            <td class="px-6 py-2 border">CleanStream (AI-Based)</td>
+            <td class="px-6 py-2 border">High</td>
+            <td class="px-6 py-2 border">Excellent</td>
+        </tr>
+    </table>
+</section>
 
-        <section id="team" class="text-center pt-10 border-t border-slate-900">
-            <h2 class="text-[10px] font-black text-slate-600 uppercase tracking-[0.5em] mb-12">Academic Credits</h2>
-            <div class="flex flex-wrap justify-center gap-10">
-                <div class="glass px-12 py-8 rounded-[2rem] border-b-4 border-blue-600">
-                    <p class="text-[9px] font-bold text-blue-500 mb-2 uppercase tracking-widest">Project Guide</p>
-                    <p class="font-black text-xl text-slate-100">Dr. Bhawani Singh Rathore</p>
-                </div>
-                <div class="glass px-12 py-8 rounded-[2rem] border-b-4 border-slate-700">
-                    <p class="text-[9px] font-bold text-slate-400 mb-2 uppercase tracking-widest">Team Member 1</p>
-                    <p class="font-black text-xl text-slate-100">Angad Tyagi</p>
-                    <p class="text-[10px] text-slate-500 mt-1">Reg No: 2427030688</p>
 
-                </div>
-            </div>
-        </section>
-    </main>
+<section class="min-h-screen flex flex-col justify-center px-12">
+    <h2 class="text-4xl font-bold mb-6 gradient-text">Future Scope</h2>
+    <ul class="text-lg text-slate-300 space-y-4">
+        <li>Real-time censorship for live streaming</li>
+        <li>Context-aware NLP detection</li>
+        <li>Web-based application</li>
+        <li>Browser extension for OTT platforms</li>
+        <li>Mobile application</li>
+    </ul>
+</section>
 
-    <footer class="py-12 text-center bg-black/40 border-t border-slate-900">
-        <p class="text-slate-600 text-[10px] font-bold tracking-[0.3em] uppercase mb-2">Manipal University Jaipur</p>
-        <p class="text-slate-500 text-[9px] font-medium tracking-[0.2em] uppercase opacity-50">Department of Computer Science & Engineering • 2026</p>
-    </footer>
 
-    <script>
-        // TIMER LOGIC
-        let sec = 0;
-        let timer = null;
-        function startTimer() {
-            timer = setInterval(() => {
-                sec++;
-                let m = Math.floor(sec / 60);
-                let s = sec % 60;
-                document.getElementById('displayTime').innerText = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
-                
-                if (sec >= 480 && sec < 600) { // 8-10 Mins Warning
-                    document.getElementById('timerContainer').classList.add('timer-warning');
-                    document.getElementById('timerIcon').classList.replace('fa-hourglass-start', 'fa-hourglass-half');
-                } else if (sec >= 600) { // 10 Mins Stop
-                    clearInterval(timer);
-                    document.getElementById('timerContainer').classList.replace('timer-warning', 'timer-stop');
-                    document.getElementById('displayTime').innerText = "10:00";
-                    document.getElementById('timerIcon').classList.replace('fa-hourglass-half', 'fa-hourglass-end');
-                }
-            }, 1000);
-        }
-
-        // RESULTS CHART (Demo Data)
-        const ctx = document.getElementById('resultsChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Existing System', 'Our Solution'],
-                datasets: [{
-                    data: [70, 92],
-                    backgroundColor: ['#1e293b', '#3b82f6'],
-                    borderRadius: 15,
-                    barThickness: 50
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { display: false } },
-                scales: { 
-                    y: { beginAtZero: true, grid: { color: '#ffffff05' }, ticks: { color: '#475569' } },
-                    x: { grid: { display: false }, ticks: { color: '#475569' } }
-                }
-            }
-        });
-    </script>
-</body>
-</html>
+<section class="min-h-screen flex flex-col justify-center items-center text-center">
+    <h2 class="text-5xl font-bold gradient-text mb-6">Thank You</h2>
+    <p class="text-slate-400">Questions?</p>
+</section>
